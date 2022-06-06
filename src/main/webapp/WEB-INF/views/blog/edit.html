@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blog</title>
+</head>
+<body>
+<th:block th:if="${mess}">
+    <p th:text="${mess}"></p>
+</th:block>
+<form th:action="@{/edit-blog}" th:object="${blog}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td><input type="text" th:field="*{content}"></td>
+        </tr>
+        <tr>
+            <td>Category:</td>
+            <td>
+                <select name="category">
+                    <option th:each="c : ${categories}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"
+                            th:selected="(${blog.category}) and (${c.id} == *{category.id})"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/blogs">Back to List</a></td>
+            <td><button type="submit">Update</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

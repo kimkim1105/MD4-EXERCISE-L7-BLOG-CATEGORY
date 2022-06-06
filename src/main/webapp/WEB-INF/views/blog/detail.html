@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Detail</title>
+</head>
+<body>
+<form th:action="@{/detail-blog}" th:object="${blog}" method="post">
+    <input th:type="hidden" name="id" th:field="${blog.id}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><p type="text" th:text="${blog.name}"></p></td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td><p type="text" th:text="${blog.content}"></p></td>
+        </tr>
+        <tr>
+            <td><a href="/blogs">Back to List</a></td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

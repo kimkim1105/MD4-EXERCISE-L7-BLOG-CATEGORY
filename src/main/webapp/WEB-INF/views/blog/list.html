@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<h1>Blog</h1>
+<a th:href="@{/create-blog}">Add Blog</a>
+<form>
+    Search by name:
+    <input name="search" type="text"/>
+    <input type="submit" value="Search"/>
+</form>
+<form>
+    Sort by
+    <select name="sort" id="sort">
+        <option value="id">Sort by Id</option>
+        <option value="name">Sort by Name</option>
+        <option value="new">newest blogs</option>
+        <option value="old">oldest blogs</option>
+        <input type="submit" value="Search"/>
+    </select>
+</form>
+<form>
+    Sort by Category
+    <select name="id">
+        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+        <input type="submit" value="Search"/>
+    </select>
+</form>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Time</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="b:${blogs}">
+        <tr>
+            <th><a th:href="@{/detail-blog/__${b.id}__}" th:text="${b.name}"></a></th>
+            <td th:if="${b.category}" th:text="${b.category.name}"></td>
+            <td th:unless="${b.category}"></td>
+            <td th:if="${b.time}" th:utext="${b.time}"></td>
+            <td th:unless="${b.time}"></td>
+            <th><a th:href="@{/edit-blog/__${b.id}__}">Edit</a></th>
+            <th><a th:href="@{/delete-blog/__${b.id}__}">Delete</a></th>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/blogs'(page=${blogs.number - 1})}" th:if="${blogs.hasPrevious()}">Previous</a>
+    <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>
+    <a th:href="@{'/blogs'(page=${blogs.number + 1})}" th:if="${blogs.hasNext()}">Next</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Category</title>
+</head>
+<body>
+<th:block th:if="${mess}">
+    <p th:text="${mess}"></p>
+</th:block>
+<form th:action="@{/delete-category}" th:object="${category}" method="post">
+    <input th:type="hidden" name="id" th:field="${category.id}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><p type="text" th:text="${category.name}"></p></td>
+        </tr>
+        <tr>
+            <td><a href="/categories">Back to List</a></td>
+            <td><button type="submit">Delete</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
